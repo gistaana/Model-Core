@@ -33,6 +33,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.36047, -0.266799, -0.691315
 
 [node name="Buffy Scythe" parent="Head/Camera3D" instance=ExtResource("3_sicbl")]
 transform = Transform3D(0.599292, 0.0237005, 0.0169401, -0.0237157, 0.599531, 0.000204903, -0.0169188, -0.00087424, 0.599761, -0.771126, -0.426393, -0.931523)
+visible = false
 
 [node name="Hitbox" type="Area3D" parent="Head/Camera3D"]
 
