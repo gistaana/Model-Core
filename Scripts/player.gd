@@ -20,6 +20,7 @@ var inst
 @onready var gun_anim := $"Head/Camera3D/Steampunk Rifle/AnimationPlayer"
 @onready var melee_anim := $"Head/Camera3D/Buffy Scythe/AnimationPlayer"
 @onready var gun_muzzle := $"Head/Camera3D/Steampunk Rifle/RayCast3D"
+@onready var sniper_anim := $"Head/Camera3D/Sniper Rifle/RootNode/AnimationPlayer"
 
 func _ready():    # gets rid of cursor to allow camera to move via mouse
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -39,15 +40,14 @@ func fire():
 			inst.transform.basis = gun_muzzle.global_transform.basis
 			get_parent().add_child(inst)
 
-func swing():
-	if Input.is_action_pressed("swing"):
-		if !melee_anim.is_playing():
-			melee_anim.play("melee")
-			melee_anim.queue("return")
+func snipe():
+	if Input.is_action_pressed("snipe"):
+		if !sniper_anim.is_playing():
+			sniper_anim.play("bigrecoil")
 
 func _physics_process(delta):
 	
-	swing()
+	snipe()
 	fire()
 	
 	# Add the gravity.
