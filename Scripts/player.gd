@@ -15,6 +15,7 @@ const FOVMULTI = 1.5
 @onready var head := $Head # connects to the node which is a child to characterbody3d
 @onready var camera := $Head/Camera3D
 @onready var gun_anim := $"Head/Camera3D/Steampunk Rifle/AnimationPlayer"
+@onready var melee_anim := $"Head/Camera3D/Buffy Scythe/AnimationPlayer"
 
 func _ready():    # gets rid of cursor to allow camera to move via mouse
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -30,8 +31,15 @@ func fire():
 		if !gun_anim.is_playing():
 			gun_anim.play("recoil")
 
+func swing():
+	if Input.is_action_pressed("swing"):
+		if !melee_anim.is_playing():
+			melee_anim.play("melee")
+			melee_anim.queue("return")
+
 func _physics_process(delta):
 	
+	swing()
 	fire()
 	
 	# Add the gravity.
