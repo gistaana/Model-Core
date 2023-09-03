@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bqyg2wi148exh"]
+[gd_scene load_steps=9 format=3 uid="uid://bqyg2wi148exh"]
 
 [ext_resource type="Texture2D" uid="uid://bilivbomwcui2" path="res://Textures/4K_acoustic_panel_3_height.png" id="1_01e1f"]
+[ext_resource type="PackedScene" uid="uid://qpx2l1xvo6nd" path="res://Scenes/player.tscn" id="2_t0216"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_r6trk"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -42,3 +43,5 @@ mesh = SubResource("BoxMesh_31kki")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_kn1wm")
+
+[node name="Player" parent="." instance=ExtResource("2_t0216")]

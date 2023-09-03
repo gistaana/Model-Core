@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://qpx2l1xvo6nd"]
+[gd_scene load_steps=5 format=3 uid="uid://qpx2l1xvo6nd"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_haf7m"]
+[ext_resource type="PackedScene" uid="uid://chlqyibj0scav" path="res://Scenes/steampunk_rifle.tscn" id="2_b3cfw"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_p35qq"]
 
@@ -22,3 +23,6 @@ shape = SubResource("ConvexPolygonShape3D_2jybj")
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5975, 0)
+
+[node name="Steampunk Rifle" parent="Head/Camera3D" instance=ExtResource("2_b3cfw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.36047, -0.266799, -0.691315)
