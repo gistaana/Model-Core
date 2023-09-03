@@ -14,6 +14,7 @@ const FOVMULTI = 1.5
 
 @onready var head := $Head # connects to the node which is a child to characterbody3d
 @onready var camera := $Head/Camera3D
+@onready var gun_anim := $"Head/Camera3D/Steampunk Rifle/AnimationPlayer"
 
 func _ready():    # gets rid of cursor to allow camera to move via mouse
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -23,8 +24,15 @@ func _unhandled_input(event):
 		head.rotate_y(-event.relative.x * MOUSESPEED) # moving left to right rotates around the y axis vice versa 
 		camera.rotate_x(-event.relative.y * MOUSESPEED)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60)) # limits rotation of camera
+		
+func fire():
+	if Input.is_action_pressed("fire"):
+		if !gun_anim.is_playing():
+			gun_anim.play("recoil")
 
 func _physics_process(delta):
+	
+	fire()
 	
 	# Add the gravity.
 	if not is_on_floor():
