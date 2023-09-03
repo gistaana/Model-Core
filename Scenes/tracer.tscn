@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctci3ioyd78m5"]
+
+[ext_resource type="Script" path="res://Scripts/tracer.gd" id="1_ti2xp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3nxsu"]
+albedo_color = Color(0.854902, 0.223529, 0, 1)
+emission_enabled = true
+emission = Color(0.392157, 0, 0, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_yss5q"]
+material = SubResource("StandardMaterial3D_3nxsu")
+size = Vector3(0.05, 0.05, 1)
+
+[node name="tracer" type="Node3D"]
+script = ExtResource("1_ti2xp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_yss5q")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -0.6)

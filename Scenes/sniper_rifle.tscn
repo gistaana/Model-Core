@@ -49,3 +49,7 @@ transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.629, -0.572, 0.09)
 libraries = {
 "": SubResource("AnimationLibrary_3nk1h")
 }
+
+[node name="RayCast3D" type="RayCast3D" parent="RootNode" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.806645, -9.55459)
+target_position = Vector3(0, 0, -100)
