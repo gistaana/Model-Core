@@ -46,3 +46,7 @@ _data = {
 libraries = {
 "": SubResource("AnimationLibrary_mk4ii")
 }
+
+[node name="RayCast3D" type="RayCast3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000783756, 0.0168805, -0.421853)
+target_position = Vector3(0, 0, -1)
