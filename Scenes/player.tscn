@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_haf7m"]
 [ext_resource type="PackedScene" uid="uid://chlqyibj0scav" path="res://Scenes/steampunk_rifle.tscn" id="2_b3cfw"]
-[ext_resource type="PackedScene" uid="uid://dc6bj0smyryw3" path="res://Scenes/sniper_rifle.tscn" id="4_enonm"]
+[ext_resource type="PackedScene" uid="uid://cv3ced7iwxpft" path="res://Scenes/ray_gun.tscn" id="3_30fq1"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_p35qq"]
 
@@ -29,7 +29,7 @@ shape = SubResource("ConvexPolygonShape3D_2jybj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5975, 0)
 
 [node name="Steampunk Rifle" parent="Head/Camera3D" instance=ExtResource("2_b3cfw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.36047, -0.266799, -0.691315)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.183695, -0.266799, -0.691315)
 
 [node name="Hitbox" type="Area3D" parent="Head/Camera3D"]
 
@@ -37,5 +37,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.36047, -0.266799, -0.691315
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0293961, -0.0247223, -1.4821)
 shape = SubResource("BoxShape3D_x8v3h")
 
-[node name="Sniper Rifle" parent="Head/Camera3D" instance=ExtResource("4_enonm")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.106208, -0.0780858, -0.213942)
+[node name="Ray Gun" parent="Head/Camera3D" instance=ExtResource("3_30fq1")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.195376, -0.399195, -0.333367)

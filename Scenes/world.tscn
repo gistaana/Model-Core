@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://bqyg2wi148exh"]
+[gd_scene load_steps=12 format=3 uid="uid://bqyg2wi148exh"]
 
 [ext_resource type="Texture2D" uid="uid://bilivbomwcui2" path="res://Textures/4K_acoustic_panel_3_height.png" id="1_01e1f"]
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_ptto3"]
 [ext_resource type="PackedScene" uid="uid://qpx2l1xvo6nd" path="res://Scenes/player.tscn" id="2_t0216"]
 [ext_resource type="Texture2D" uid="uid://dj7n4xjfa8f0g" path="res://Black/crosshair159.png" id="4_m2ebo"]
+[ext_resource type="PackedScene" uid="uid://csqmeej2t5wob" path="res://Scenes/enemy.tscn" id="5_plhb2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_r6trk"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -61,3 +62,6 @@ offset_right = 64.0
 offset_bottom = 64.0
 mouse_filter = 2
 texture = ExtResource("4_m2ebo")
+
+[node name="enemy" parent="." groups=["enemy"] instance=ExtResource("5_plhb2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8833, 8.60789)

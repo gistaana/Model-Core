@@ -13,16 +13,16 @@ const WALK_FOV = 75.0
 const FOVMULTI = 1.5
 
 var bullet = load("res://Scenes/bullet.tscn")
-var tracer = load("res://Scenes/tracer.tscn")
 var inst
 
 @onready var head := $Head # connects to the node which is a child to characterbody3d
 @onready var camera := $Head/Camera3D
 @onready var gun_anim := $"Head/Camera3D/Steampunk Rifle/AnimationPlayer"
-@onready var melee_anim := $"Head/Camera3D/Buffy Scythe/AnimationPlayer"
+# @onready var melee_anim := $"Head/Camera3D/Buffy Scythe/AnimationPlayer"
 @onready var gun_muzzle := $"Head/Camera3D/Steampunk Rifle/RayCast3D"
-@onready var sniper_anim := $"Head/Camera3D/Sniper Rifle/RootNode/AnimationPlayer"
-@onready var sniper_muzzle := $"Head/Camera3D/Sniper Rifle/RootNode/RayCast3D"
+@onready var raygun_anim := $"Head/Camera3D/Ray Gun/RootNode/AnimationPlayer"
+#@onready var sniper_muzzle := $"Head/Camera3D/Sniper Rifle/RootNode/RayCast3D"
+
 
 func _ready():    # gets rid of cursor to allow camera to move via mouse
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -33,7 +33,7 @@ func _unhandled_input(event):
 		camera.rotate_x(-event.relative.y * MOUSESPEED)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60)) # limits rotation of camera
 		
-func fire():
+func fire():  # right handed gun
 	if Input.is_action_pressed("fire"):
 		if !gun_anim.is_playing():
 			gun_anim.play("recoil")
@@ -42,14 +42,15 @@ func fire():
 			inst.transform.basis = gun_muzzle.global_transform.basis
 			get_parent().add_child(inst)
 
-func snipe():
+func snipe():  # left handed gun
 	if Input.is_action_pressed("snipe"):
-		if !sniper_anim.is_playing():
-			sniper_anim.play("bigrecoil")
-			inst = tracer.instantiate()
-			inst.position = sniper_muzzle.global_position
-			inst.transform.basis = sniper_muzzle.global_transform.basis
-			get_parent().add_child(inst)
+		if !raygun_anim.is_playing():
+			raygun_anim.play("bigrecoil")
+			#inst = bullet.instantiate()
+			#inst.position = sniper_muzzle.global_position
+			#inst.transform.basis = sniper_muzzle.global_transform.basis
+			#get_parent().add_child(inst)
+			
 
 func _physics_process(delta):
 	
