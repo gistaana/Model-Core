@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://d4gpotp4j4bt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fsgiy"]
+albedo_color = Color(0.592157, 0.12549, 0, 1)
+emission = Color(0.592157, 0.12549, 0, 1)
+emission_energy_multiplier = 4.64
+
+[sub_resource type="TorusMesh" id="TorusMesh_hwk33"]
+material = SubResource("StandardMaterial3D_fsgiy")
+inner_radius = 0.166
+outer_radius = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ad24v"]
+albedo_color = Color(0.592157, 0.12549, 0, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_jgbak"]
+material = SubResource("StandardMaterial3D_ad24v")
+inner_radius = 0.166
+outer_radius = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fomsm"]
+albedo_color = Color(0.592157, 0.12549, 0, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_k4gjh"]
+material = SubResource("StandardMaterial3D_fomsm")
+inner_radius = 0.166
+outer_radius = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ve7o"]
+albedo_color = Color(0.592157, 0.12549, 0, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_61x1c"]
+material = SubResource("StandardMaterial3D_8ve7o")
+inner_radius = 0.166
+outer_radius = 0.2
+
+[node name="energyattack" type="Node3D"]
+
+[node name="Rings" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("TorusMesh_hwk33")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Rings"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1662, -7.26485e-09)
+mesh = SubResource("TorusMesh_jgbak")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Rings"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.155168, 6.78263e-09)
+mesh = SubResource("TorusMesh_k4gjh")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Rings"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.307898, 1.34587e-08)
+mesh = SubResource("TorusMesh_61x1c")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.486234)
+target_position = Vector3(0, 0, -1)
