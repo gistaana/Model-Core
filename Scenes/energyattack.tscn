@@ -1,57 +1,72 @@
-[gd_scene load_steps=9 format=3 uid="uid://d4gpotp4j4bt"]
+[gd_scene load_steps=10 format=3 uid="uid://d4gpotp4j4bt"]
+
+[ext_resource type="Script" path="res://Scripts/energyattack.gd" id="1_sxcjj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fsgiy"]
 albedo_color = Color(0.592157, 0.12549, 0, 1)
-emission = Color(0.592157, 0.12549, 0, 1)
-emission_energy_multiplier = 4.64
+emission_enabled = true
+emission = Color(0.592157, 0.152941, 0, 1)
+emission_energy_multiplier = 5.0
 
 [sub_resource type="TorusMesh" id="TorusMesh_hwk33"]
 material = SubResource("StandardMaterial3D_fsgiy")
-inner_radius = 0.166
-outer_radius = 0.2
+inner_radius = 0.148
+outer_radius = 0.152
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ad24v"]
 albedo_color = Color(0.592157, 0.12549, 0, 1)
+emission_enabled = true
+emission = Color(0.592157, 0.152941, 0, 1)
+emission_energy_multiplier = 5.0
 
 [sub_resource type="TorusMesh" id="TorusMesh_jgbak"]
 material = SubResource("StandardMaterial3D_ad24v")
-inner_radius = 0.166
-outer_radius = 0.2
+inner_radius = 0.038
+outer_radius = 0.039
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fomsm"]
 albedo_color = Color(0.592157, 0.12549, 0, 1)
+emission_enabled = true
+emission = Color(0.592157, 0.152941, 0, 1)
+emission_energy_multiplier = 5.0
 
 [sub_resource type="TorusMesh" id="TorusMesh_k4gjh"]
 material = SubResource("StandardMaterial3D_fomsm")
-inner_radius = 0.166
-outer_radius = 0.2
+inner_radius = 0.113
+outer_radius = 0.116
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ve7o"]
 albedo_color = Color(0.592157, 0.12549, 0, 1)
+emission_enabled = true
+emission = Color(0.592157, 0.152941, 0, 1)
+emission_energy_multiplier = 5.0
 
 [sub_resource type="TorusMesh" id="TorusMesh_61x1c"]
 material = SubResource("StandardMaterial3D_8ve7o")
-inner_radius = 0.166
+inner_radius = 0.195
 outer_radius = 0.2
 
 [node name="energyattack" type="Node3D"]
+script = ExtResource("1_sxcjj")
 
 [node name="Rings" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, 0, 0, -13.1631)
 mesh = SubResource("TorusMesh_hwk33")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Rings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1662, -7.26485e-09)
+transform = Transform3D(1, 0, 0, 0, 1, -3.55271e-15, 0, 3.55271e-15, 1, -0.0088542, 0.264871, 3.61058e-08)
 mesh = SubResource("TorusMesh_jgbak")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Rings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.155168, 6.78263e-09)
+transform = Transform3D(1, 0, 0, 0, 1, -3.55271e-15, 0, 3.55271e-15, 1, 0, 0.149554, -6.5372e-09)
 mesh = SubResource("TorusMesh_k4gjh")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="Rings"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.307898, 1.34587e-08)
+transform = Transform3D(1, 0, 0, 0, 1, -3.55271e-15, 0, 3.55271e-15, 1, 0, -0.165283, 7.22473e-09)
 mesh = SubResource("TorusMesh_61x1c")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.486234)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11.7874)
 target_position = Vector3(0, 0, -1)
+hit_from_inside = true
+collide_with_areas = true

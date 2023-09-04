@@ -34,7 +34,6 @@ script = ExtResource("1_03m6h")
 mesh = SubResource("BoxMesh_8mao1")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0139709)
 target_position = Vector3(0, 0, -1)
 collide_with_areas = true
 
