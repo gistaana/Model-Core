@@ -21,7 +21,8 @@ var inst
 # @onready var melee_anim := $"Head/Camera3D/Buffy Scythe/AnimationPlayer"
 @onready var gun_muzzle := $"Head/Camera3D/Steampunk Rifle/RayCast3D"
 @onready var raygun_anim := $"Head/Camera3D/Ray Gun/RootNode/AnimationPlayer"
-#@onready var sniper_muzzle := $"Head/Camera3D/Sniper Rifle/RootNode/RayCast3D"
+@onready var raygun_muzzle := $"Head/Camera3D/Ray Gun/RootNode/RayCast3D"
+
 
 
 func _ready():    # gets rid of cursor to allow camera to move via mouse
@@ -42,8 +43,8 @@ func fire():  # right handed gun
 			inst.transform.basis = gun_muzzle.global_transform.basis
 			get_parent().add_child(inst)
 
-func snipe():  # left handed gun
-	if Input.is_action_pressed("snipe"):
+func powershot():  # left handed gun
+	if Input.is_action_pressed("powershot"):
 		if !raygun_anim.is_playing():
 			raygun_anim.play("bigrecoil")
 			#inst = bullet.instantiate()
@@ -54,7 +55,7 @@ func snipe():  # left handed gun
 
 func _physics_process(delta):
 	
-	snipe()
+	powershot()
 	fire()
 	
 	# Add the gravity.
