@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://qpx2l1xvo6nd"]
+[gd_scene load_steps=8 format=3 uid="uid://qpx2l1xvo6nd"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_haf7m"]
 [ext_resource type="PackedScene" uid="uid://chlqyibj0scav" path="res://Scenes/steampunk_rifle.tscn" id="2_b3cfw"]
 [ext_resource type="PackedScene" uid="uid://dpjke3nwv7vio" path="res://Scenes/steampunk_rifle_2.tscn" id="3_nnpd2"]
+[ext_resource type="PackedScene" uid="uid://con8yi1osaamb" path="res://Scenes/steampunk_rifle_3.tscn" id="4_5eur2"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_p35qq"]
 
@@ -16,7 +17,7 @@ size = Vector3(1, 1, 2)
 script = ExtResource("1_haf7m")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.978799, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.133135, 0.978799, 0)
 mesh = SubResource("CapsuleMesh_p35qq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -40,4 +41,8 @@ shape = SubResource("BoxShape3D_x8v3h")
 [node name="Steampunk Rifle2" parent="Head/Camera3D" instance=ExtResource("3_nnpd2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, -0.267, -0.691)
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Steampunk Rifle3" parent="Head/Camera3D" instance=ExtResource("4_5eur2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.34443, -0.0442152, 0.0507945)
+
+[node name="Timer" type="Timer" parent="Head"]
+wait_time = 2.0

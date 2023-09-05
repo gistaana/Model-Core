@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://d2hjj3xubl1ki"]
+
+[ext_resource type="Script" path="res://Scripts/energyball.gd" id="1_2622o"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aug1a"]
+albedo_color = Color(0.360784, 0.705882, 0.360784, 1)
+emission_enabled = true
+emission = Color(0.360784, 0.705882, 0.360784, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_1namr"]
+material = SubResource("StandardMaterial3D_aug1a")
+radius = 0.376
+height = 0.75
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d3yjl"]
+direction = Vector3(0, 0, 1)
+spread = 90.0
+initial_velocity_min = 3.0
+initial_velocity_max = 5.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nq3m0"]
+albedo_color = Color(0.360784, 0.705882, 0.360784, 1)
+emission_enabled = true
+emission = Color(0.360784, 0.705882, 0.360784, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_0p4fb"]
+material = SubResource("StandardMaterial3D_nq3m0")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="energyball" type="Node3D"]
+script = ExtResource("1_2622o")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_1namr")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -1)
+collide_with_areas = true
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_d3yjl")
+draw_pass_1 = SubResource("BoxMesh_0p4fb")
