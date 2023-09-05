@@ -1,11 +1,12 @@
 extends CharacterBody3D
 
-var speed
+var speed = 0
 const WALK = 5.0
-const SPRINT = 9.0
-const BOOST = 20.0
+var SPRINT = 9.0
+var BOOST = 20.0
 const JUMP_VELOCITY = 4.5
 const MOUSESPEED = 0.004
+var num = 1
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = 9.8
@@ -39,7 +40,20 @@ func _unhandled_input(event):
 		camera.rotate_x(-event.relative.y * MOUSESPEED)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60)) # limits rotation of camera
 		
-		
+func energy_switch():
+	if Input.is_action_pressed("switch1"):
+		num = 1
+		SPRINT = 9.0
+		BOOST = 20.0
+	if Input.is_action_pressed("switch2"):
+		num = 2
+		SPRINT = 5.0
+		BOOST = 9.0
+	else:
+		pass
+	print(num)
+	print(BOOST)
+	
 func lightshot():  # right handed gun
 	if Input.is_action_pressed("lightshot"):
 		if !gun_anim.is_playing():
@@ -63,8 +77,16 @@ func powershot():
 			inst.position = gun3_muzzle.global_position
 			inst.transform.basis = gun3_muzzle.global_transform.basis
 			get_parent().add_child(inst)
-		
 	
+func flowshot():
+	if Input.is_action_pressed("powershot"):
+		if !gun3_anim.is_playing():
+			#gun3_anim.play("fastrecoil")
+			inst = energyball.instantiate()
+			inst.position = gun3_muzzle.global_position
+			inst.transform.basis = gun3_muzzle.global_transform.basis
+			get_parent().add_child(inst)
+			
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
@@ -80,8 +102,12 @@ func _physics_process(delta):
 			speed = BOOST
 	else:
 		player_anim.stop()
+		energy_switch()
+		if num == 1:
+			powershot()
+		if num == 2:
+			flowshot()
 		lightshot()
-		powershot()
 		speed = SPRINT
 		
 	if Input.is_action_just_pressed("quit"):  # added a quit button
