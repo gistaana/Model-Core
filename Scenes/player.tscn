@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://qpx2l1xvo6nd"]
 
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_haf7m"]
-[ext_resource type="PackedScene" uid="uid://chlqyibj0scav" path="res://Scenes/steampunk_rifle.tscn" id="2_b3cfw"]
-[ext_resource type="PackedScene" uid="uid://dpjke3nwv7vio" path="res://Scenes/steampunk_rifle_2.tscn" id="3_nnpd2"]
-[ext_resource type="PackedScene" uid="uid://con8yi1osaamb" path="res://Scenes/steampunk_rifle_3.tscn" id="4_5eur2"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_lengv"]
+[ext_resource type="PackedScene" uid="uid://chlqyibj0scav" path="res://Scenes/steampunk_rifle.tscn" id="2_3qfs7"]
+[ext_resource type="PackedScene" uid="uid://dpjke3nwv7vio" path="res://Scenes/steampunk_rifle_2.tscn" id="3_jytqi"]
+[ext_resource type="PackedScene" uid="uid://con8yi1osaamb" path="res://Scenes/steampunk_rifle_3.tscn" id="4_kpmis"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_p35qq"]
 
@@ -14,7 +14,7 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 size = Vector3(1, 1, 2)
 
 [node name="Player" type="CharacterBody3D"]
-script = ExtResource("1_haf7m")
+script = ExtResource("1_lengv")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.133135, 0.978799, 0)
@@ -29,7 +29,7 @@ shape = SubResource("ConvexPolygonShape3D_2jybj")
 [node name="Camera3D" type="Camera3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5975, 0)
 
-[node name="Steampunk Rifle" parent="Head/Camera3D" instance=ExtResource("2_b3cfw")]
+[node name="Steampunk Rifle" parent="Head/Camera3D" instance=ExtResource("2_3qfs7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, -0.267, -0.691)
 
 [node name="Hitbox" type="Area3D" parent="Head/Camera3D"]
@@ -38,10 +38,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, -0.267, -0.691)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0293961, -0.0247223, -1.4821)
 shape = SubResource("BoxShape3D_x8v3h")
 
-[node name="Steampunk Rifle2" parent="Head/Camera3D" instance=ExtResource("3_nnpd2")]
+[node name="Steampunk Rifle2" parent="Head/Camera3D" instance=ExtResource("3_jytqi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, -0.267, -0.691)
 
-[node name="Steampunk Rifle3" parent="Head/Camera3D" instance=ExtResource("4_5eur2")]
+[node name="Steampunk Rifle3" parent="Head/Camera3D" instance=ExtResource("4_kpmis")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.34443, -0.0442152, 0.0507945)
 
 [node name="Timer" type="Timer" parent="Head"]
