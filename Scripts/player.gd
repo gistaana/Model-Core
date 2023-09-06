@@ -7,6 +7,10 @@ var BOOST = 20.0
 const JUMP_VELOCITY = 4.5
 const MOUSESPEED = 0.004
 var num = 1
+var can_boost 
+const max_count = 100
+var count = max_count
+var b = true
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = 9.8
@@ -31,6 +35,8 @@ var inst
 @onready var gun2_muzzle := $"Head/Camera3D/Steampunk Rifle2/RayCast3D"
 @onready var gun3_muzzle := $"Head/Camera3D/Steampunk Rifle3/RayCast3D"
 
+@onready var text := $"Head/Camera3D/text"
+
 func _ready():    # gets rid of cursor to allow camera to move via mouse
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -51,8 +57,8 @@ func energy_switch():
 		BOOST = 9.0
 	else:
 		pass
-	print(num)
-	print(BOOST)
+	#print(num)
+	#print(BOOST)
 	
 func lightshot():  # right handed gun
 	if Input.is_action_pressed("lightshot"):
@@ -85,7 +91,7 @@ func flowshot():
 			inst = energyball.instantiate()
 			inst.position = gun3_muzzle.global_position
 			inst.transform.basis = gun3_muzzle.global_transform.basis
-			get_parent().add_child(inst)
+			get_parent().add_child(inst)	
 			
 func _physics_process(delta):
 	# Add the gravity.
@@ -96,11 +102,25 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 		
-	if Input.is_action_pressed("sprint"): # pressing shift will make the player sprint
+	if Input.is_action_pressed("sprint") and count != 0 and b: # pressing shift will make the player sprint
 		if !player_anim.is_playing():
 			player_anim.play("zoom")
-			speed = BOOST
+			
+		speed = BOOST 
+		count -= 1
+		print(count)
+		
+		
 	else:
+		if count >= max_count:
+			count = max_count
+			b = true
+		elif count == 0:
+			b = false
+			count += 1
+		else:
+			count += 1
+		
 		player_anim.stop()
 		energy_switch()
 		if num == 1:
@@ -109,6 +129,7 @@ func _physics_process(delta):
 			flowshot()
 		lightshot()
 		speed = SPRINT
+		print(count)
 		
 	if Input.is_action_just_pressed("quit"):  # added a quit button
 		get_tree().quit()
