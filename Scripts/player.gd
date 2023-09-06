@@ -26,6 +26,7 @@ var inst
 @onready var head := $Head # connects to the node which is a child to characterbody3d
 @onready var camera := $Head/Camera3D
 @onready var player_anim := $"AnimationPlayer"
+@onready var gun3 = $"Head/Camera3D/Steampunk Rifle3"
 
 @onready var gun_anim := $"Head/Camera3D/Steampunk Rifle/AnimationPlayer"
 @onready var gun2_anim :=$"Head/Camera3D/Steampunk Rifle2/AnimationPlayer"
@@ -34,8 +35,6 @@ var inst
 @onready var gun_muzzle := $"Head/Camera3D/Steampunk Rifle/RayCast3D"
 @onready var gun2_muzzle := $"Head/Camera3D/Steampunk Rifle2/RayCast3D"
 @onready var gun3_muzzle := $"Head/Camera3D/Steampunk Rifle3/RayCast3D"
-
-@onready var text := $"Head/Camera3D/text"
 
 func _ready():    # gets rid of cursor to allow camera to move via mouse
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -107,11 +106,10 @@ func _physics_process(delta):
 			player_anim.play("zoom")
 			
 		speed = BOOST 
-		count -= 1
-		print(count)
-		
+		count -= 1		
 		
 	else:
+		
 		if count >= max_count:
 			count = max_count
 			b = true
@@ -124,12 +122,12 @@ func _physics_process(delta):
 		player_anim.stop()
 		energy_switch()
 		if num == 1:
-			powershot()
+			gun3.visible = false
 		if num == 2:
+			gun3.visible = true
 			flowshot()
 		lightshot()
 		speed = SPRINT
-		print(count)
 		
 	if Input.is_action_just_pressed("quit"):  # added a quit button
 		get_tree().quit()
