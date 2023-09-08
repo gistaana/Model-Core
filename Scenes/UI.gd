@@ -28,6 +28,7 @@ func _process(delta):
 		if Input.is_action_pressed("e") and mode.visible == true:
 			mode.text = "(Flight Disabled)"
 		if Input.is_action_pressed("switch1"):
+			mode.text = "(Flight Disabled)"
 			mode.visible = true
 			model.text = "Model 1: Jet Build"
 		if Input.is_action_pressed("switch2"):
