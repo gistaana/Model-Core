@@ -4,10 +4,11 @@ var speed = 0
 const WALK = 5.0
 var SPRINT = 9.0
 var BOOST = 20.0
-const JUMP_VELOCITY = 4.5
+var JUMP_VELOCITY = 4.5
 const MOUSESPEED = 0.004
 var num = 1
 var can_boost 
+var can_fly = true
 const max_count = 100
 var count = max_count
 var b = true
@@ -27,6 +28,8 @@ var inst
 @onready var camera := $Head/Camera3D
 @onready var player_anim := $"AnimationPlayer"
 @onready var gun3 = $"Head/Camera3D/Steampunk Rifle3"
+@onready var gun1 = $"Head/Camera3D/Steampunk Rifle"
+@onready var gun2 = $"Head/Camera3D/Steampunk Rifle2"
 
 @onready var gun_anim := $"Head/Camera3D/Steampunk Rifle/AnimationPlayer"
 @onready var gun2_anim :=$"Head/Camera3D/Steampunk Rifle2/AnimationPlayer"
@@ -45,19 +48,18 @@ func _unhandled_input(event):
 		camera.rotate_x(-event.relative.y * MOUSESPEED)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60)) # limits rotation of camera
 		
-func energy_switch():
+func model_switch():
 	if Input.is_action_pressed("switch1"):
 		num = 1
-		SPRINT = 9.0
+		SPRINT = 10.0
 		BOOST = 20.0
 	if Input.is_action_pressed("switch2"):
 		num = 2
 		SPRINT = 5.0
-		BOOST = 9.0
+		BOOST = 15.0
+		JUMP_VELOCITY = 4.5
 	else:
 		pass
-	#print(num)
-	#print(BOOST)
 	
 func lightshot():  # right handed gun
 	if Input.is_action_pressed("lightshot"):
@@ -91,7 +93,19 @@ func flowshot():
 			inst.position = gun3_muzzle.global_position
 			inst.transform.basis = gun3_muzzle.global_transform.basis
 			get_parent().add_child(inst)	
+		
+func flight():
+	if Input.is_action_pressed("q"):
+		JUMP_VELOCITY = 10.0
+		BOOST = 30.0
+		SPRINT = 5.0
 			
+	if Input.is_action_pressed("e"):
+		JUMP_VELOCITY = 4.5
+		BOOST = 20.0
+		SPRINT = 10.0
+		
+		
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
@@ -109,7 +123,6 @@ func _physics_process(delta):
 		count -= 1		
 		
 	else:
-		
 		if count >= max_count:
 			count = max_count
 			b = true
@@ -120,12 +133,15 @@ func _physics_process(delta):
 			count += 1
 		
 		player_anim.stop()
-		energy_switch()
+		model_switch()
+		
 		if num == 1:
 			gun3.visible = false
+			flight()
 		if num == 2:
 			gun3.visible = true
-			flowshot()
+			powershot()
+			
 		lightshot()
 		speed = SPRINT
 		

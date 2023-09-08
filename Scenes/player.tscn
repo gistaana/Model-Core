@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://qpx2l1xvo6nd"]
+[gd_scene load_steps=12 format=3 uid="uid://qpx2l1xvo6nd"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_lengv"]
 [ext_resource type="PackedScene" uid="uid://chlqyibj0scav" path="res://Scenes/steampunk_rifle.tscn" id="2_3qfs7"]
@@ -85,6 +85,10 @@ tracks/5/keys = {
 "values": [Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_06pdy"]
+resource_name = "melee"
+length = 0.3
+
 [sub_resource type="Animation" id="Animation_kunko"]
 resource_name = "sumn"
 
@@ -168,6 +172,7 @@ tracks/5/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_je2yd"]
 _data = {
 "RESET": SubResource("Animation_iphcu"),
+"melee": SubResource("Animation_06pdy"),
 "sumn": SubResource("Animation_kunko"),
 "zoom": SubResource("Animation_w6din")
 }
@@ -205,5 +210,5 @@ libraries = {
 [node name="BoostDuration" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="timeout" from="BoostDuration" to="." method="_on_boost_cool_down_timeout"]
 [connection signal="timeout" from="BoostDuration" to="." method="_on_boost_duration_timeout"]
+[connection signal="timeout" from="BoostDuration" to="." method="_on_boost_cool_down_timeout"]
