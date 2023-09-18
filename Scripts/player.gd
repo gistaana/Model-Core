@@ -10,7 +10,7 @@ var num = 1
 var can_boost 
 var can_fly = true
 const max_count = 100
-var count = max_count
+var count 
 var b = true
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -31,6 +31,13 @@ var inst
 @onready var gun1 = $"Head/Camera3D/Steampunk Rifle"
 @onready var gun2 = $"Head/Camera3D/Steampunk Rifle2"
 
+@onready var crosshair = $UI/TextureRect
+@onready var stamina = $"UI/TextureProgressBar"
+@onready var health =$"UI/TextureProgressBar2"
+@onready var EN = $"UI/EN"
+@onready var model = $"UI/Model"
+@onready var mode = $"UI/flightMode"
+
 @onready var gun_anim := $"Head/Camera3D/Steampunk Rifle/AnimationPlayer"
 @onready var gun2_anim :=$"Head/Camera3D/Steampunk Rifle2/AnimationPlayer"
 @onready var gun3_anim :=$"Head/Camera3D/Steampunk Rifle3/AnimationPlayer"
@@ -41,6 +48,20 @@ var inst
 
 func _ready():    # gets rid of cursor to allow camera to move via mouse
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	crosshair.position.x = get_viewport().size.x / 2 - 32
+	crosshair.position.y = get_viewport().size.y / 2 - 32
+	
+	stamina.position.x = get_viewport().size.x / 2 - 250
+	stamina.position.y = 625
+	
+	health.position.x = get_viewport().size.x / 2 - 275
+	health.position.y = 610
+	
+	EN.position.x = get_viewport().size.x / 2 - 86
+	EN.position.y = 580
+	
+	stamina.value = stamina.max_value
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -85,14 +106,6 @@ func powershot():
 			inst.transform.basis = gun3_muzzle.global_transform.basis
 			get_parent().add_child(inst)
 	
-func flowshot():
-	if Input.is_action_pressed("powershot"):
-		if !gun3_anim.is_playing():
-			#gun3_anim.play("fastrecoil")
-			inst = energyball.instantiate()
-			inst.position = gun3_muzzle.global_position
-			inst.transform.basis = gun3_muzzle.global_transform.basis
-			get_parent().add_child(inst)	
 		
 func flight():
 	if Input.is_action_pressed("q"):
@@ -115,22 +128,38 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 		
-	if Input.is_action_pressed("sprint") and count != 0 and b: # pressing shift will make the player sprint
+	if Input.is_action_pressed("sprint") and stamina.value != 0 and b: # pressing shift will make the player sprint
 		if !player_anim.is_playing():
 			player_anim.play("zoom")
 			
 		speed = BOOST 
-		count -= 1		
+		stamina.value -= 1		
 		
 	else:
-		if count >= max_count:
-			count = max_count
+		if Input.is_action_pressed("q") and mode.visible == true:
+			mode.text = "(Flight Enabled)"
+		if Input.is_action_pressed("e") and mode.visible == true:
+			mode.text = "(Flight Disabled)"
+			
+		if Input.is_action_pressed("switch1"):
+			mode.text = "(Flight Disabled)"
+			mode.visible = true
+			model.text = "Model 1: Jet Build"
+		if Input.is_action_pressed("switch2"):
+			mode.visible = false
+			model.text = "Model 2: Tank Build"
+
+
+		if stamina.value >= stamina.max_value:
+			EN.visible = false
+			stamina.value = stamina.max_value
 			b = true
-		elif count == 0:
+		elif stamina.value == 0:
+			EN.visible = true
 			b = false
-			count += 1
+			stamina.value += 1
 		else:
-			count += 1
+			stamina.value += 1
 		
 		player_anim.stop()
 		model_switch()

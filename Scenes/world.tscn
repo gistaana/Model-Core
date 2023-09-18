@@ -1,13 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://bqyg2wi148exh"]
+[gd_scene load_steps=11 format=3 uid="uid://bqyg2wi148exh"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_xfk4u"]
 [ext_resource type="Texture2D" uid="uid://bilivbomwcui2" path="res://Textures/4K_acoustic_panel_3_height.png" id="2_njto8"]
 [ext_resource type="PackedScene" uid="uid://qpx2l1xvo6nd" path="res://Scenes/player.tscn" id="3_85iy5"]
-[ext_resource type="Texture2D" uid="uid://dj7n4xjfa8f0g" path="res://Textures/Black/crosshair159.png" id="4_k3563"]
-[ext_resource type="Script" path="res://Scenes/UI.gd" id="4_m1de8"]
 [ext_resource type="PackedScene" uid="uid://csqmeej2t5wob" path="res://Scenes/enemy.tscn" id="5_ojvvq"]
-[ext_resource type="Texture2D" uid="uid://bytokre0rr0q7" path="res://Textures/under.png" id="5_wy27i"]
-[ext_resource type="Texture2D" uid="uid://cbw7uprktkych" path="res://Textures/progress.png" id="6_127f1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_r6trk"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -33,18 +29,6 @@ size = Vector3(50, 1, 50)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_kn1wm"]
 data = PackedVector3Array(-25, 0.5, 25, 25, 0.5, 25, -25, -0.5, 25, 25, 0.5, 25, 25, -0.5, 25, -25, -0.5, 25, 25, 0.5, -25, -25, 0.5, -25, 25, -0.5, -25, -25, 0.5, -25, -25, -0.5, -25, 25, -0.5, -25, 25, 0.5, 25, 25, 0.5, -25, 25, -0.5, 25, 25, 0.5, -25, 25, -0.5, -25, 25, -0.5, 25, -25, 0.5, -25, -25, 0.5, 25, -25, -0.5, -25, -25, 0.5, 25, -25, -0.5, 25, -25, -0.5, -25, 25, 0.5, 25, -25, 0.5, 25, 25, 0.5, -25, -25, 0.5, 25, -25, 0.5, -25, 25, 0.5, -25, -25, -0.5, 25, 25, -0.5, 25, -25, -0.5, -25, 25, -0.5, 25, 25, -0.5, -25, -25, -0.5, -25)
 
-[sub_resource type="LabelSettings" id="LabelSettings_0vrhd"]
-font_size = 12
-
-[sub_resource type="LabelSettings" id="LabelSettings_xu2rn"]
-font_size = 12
-
-[sub_resource type="LabelSettings" id="LabelSettings_ukw5l"]
-font_size = 12
-
-[sub_resource type="LabelSettings" id="LabelSettings_cr82a"]
-font_size = 12
-
 [node name="World" type="Node3D"]
 script = ExtResource("1_xfk4u")
 
@@ -64,79 +48,6 @@ mesh = SubResource("BoxMesh_31kki")
 shape = SubResource("ConcavePolygonShape3D_kn1wm")
 
 [node name="Player" parent="." instance=ExtResource("3_85iy5")]
-
-[node name="UI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("4_m1de8")
-
-[node name="TextureRect" type="TextureRect" parent="UI"]
-layout_mode = 0
-offset_right = 64.0
-offset_bottom = 64.0
-mouse_filter = 2
-texture = ExtResource("4_k3563")
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="UI"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 607.0
-offset_right = 242.0
-offset_bottom = 610.0
-step = 0.0
-nine_patch_stretch = true
-texture_under = ExtResource("5_wy27i")
-texture_progress = ExtResource("6_127f1")
-
-[node name="EN" type="Label" parent="UI"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 589.0
-offset_right = 27.0
-offset_bottom = 609.0
-text = "EN"
-label_settings = SubResource("LabelSettings_0vrhd")
-
-[node name="Model" type="Label" parent="UI"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 619.0
-offset_right = 114.0
-offset_bottom = 642.0
-text = "Model 1: Jet Build "
-label_settings = SubResource("LabelSettings_xu2rn")
-
-[node name="TextureProgressBar2" type="TextureProgressBar" parent="UI"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 577.0
-offset_right = 258.0
-offset_bottom = 580.0
-step = 0.0
-value = 100.0
-nine_patch_stretch = true
-texture_under = ExtResource("5_wy27i")
-texture_progress = ExtResource("6_127f1")
-
-[node name="HP" type="Label" parent="UI"]
-layout_mode = 0
-offset_left = 9.0
-offset_top = 559.0
-offset_right = 26.0
-offset_bottom = 579.0
-text = "HP"
-label_settings = SubResource("LabelSettings_ukw5l")
-
-[node name="flightMode" type="Label" parent="UI"]
-layout_mode = 0
-offset_left = 118.0
-offset_top = 618.0
-offset_right = 212.0
-offset_bottom = 641.0
-text = "(Flight Disabled)"
-label_settings = SubResource("LabelSettings_cr82a")
 
 [node name="enemy" parent="." groups=["enemy"] instance=ExtResource("5_ojvvq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8833, 8.60789)

@@ -1,36 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://dpjke3nwv7vio"]
+[gd_scene load_steps=5 format=3 uid="uid://dpjke3nwv7vio"]
 
 [ext_resource type="PackedScene" uid="uid://d1wjoetj2xl52" path="res://Textures/Steampunk Rifle.glb" id="1_kjfcb"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tkd4l"]
-albedo_color = Color(0.0470588, 0.0470588, 0.0470588, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ok1r3"]
-albedo_color = Color(0.164706, 0.164706, 0.164706, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_015ha"]
-albedo_color = Color(0.0627451, 0.0627451, 0.0627451, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a4g5d"]
-albedo_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8x7pa"]
-albedo_color = Color(0.0313726, 0.0313726, 0.0313726, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mjarn"]
-albedo_color = Color(0.101961, 0.101961, 0.101961, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ybole"]
-albedo_color = Color(0.580392, 0.0352941, 0, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o83a7"]
-albedo_color = Color(0.0431373, 0.0431373, 0.0431373, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0atc0"]
-albedo_color = Color(0.0196078, 0.0196078, 0.0196078, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_htpek"]
-albedo_color = Color(0.580392, 0.0352941, 0, 1)
 
 [sub_resource type="Animation" id="Animation_h1dqe"]
 length = 0.001
@@ -95,18 +65,6 @@ _data = {
 }
 
 [node name="Steampunk Rifle2" instance=ExtResource("1_kjfcb")]
-
-[node name="Node" parent="." index="0"]
-surface_material_override/0 = SubResource("StandardMaterial3D_tkd4l")
-surface_material_override/1 = SubResource("StandardMaterial3D_ok1r3")
-surface_material_override/2 = SubResource("StandardMaterial3D_015ha")
-surface_material_override/3 = SubResource("StandardMaterial3D_a4g5d")
-surface_material_override/4 = SubResource("StandardMaterial3D_8x7pa")
-surface_material_override/5 = SubResource("StandardMaterial3D_mjarn")
-surface_material_override/6 = SubResource("StandardMaterial3D_ybole")
-surface_material_override/7 = SubResource("StandardMaterial3D_o83a7")
-surface_material_override/8 = SubResource("StandardMaterial3D_0atc0")
-surface_material_override/9 = SubResource("StandardMaterial3D_htpek")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
 libraries = {
