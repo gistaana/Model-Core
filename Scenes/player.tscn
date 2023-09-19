@@ -287,10 +287,10 @@ label_settings = SubResource("LabelSettings_njlus")
 
 [node name="Insignia" type="TextureRect" parent="UI"]
 layout_mode = 0
-offset_left = 11.0
-offset_top = 590.0
-offset_right = 52.0
-offset_bottom = 654.0
+offset_left = 9.0
+offset_top = 596.0
+offset_right = 50.0
+offset_bottom = 660.0
 texture = ExtResource("9_7883w")
 expand_mode = 1
 stretch_mode = 4
