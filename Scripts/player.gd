@@ -6,12 +6,8 @@ var SPRINT = 9.0
 var BOOST = 20.0
 var JUMP_VELOCITY = 4.5
 const MOUSESPEED = 0.004
-var num = 1
-var can_boost 
-var can_fly = true
-const max_count = 100
-var count 
-var b = true
+var modelNum = 1
+var can_boost = true
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = 9.8
@@ -27,41 +23,42 @@ var inst
 @onready var head := $Head # connects to the node which is a child to characterbody3d
 @onready var camera := $Head/Camera3D
 @onready var player_anim := $"AnimationPlayer"
-@onready var gun3 = $"Head/Camera3D/Steampunk Rifle3"
-@onready var gun1 = $"Head/Camera3D/Steampunk Rifle"
-@onready var gun2 = $"Head/Camera3D/Steampunk Rifle2"
 
-@onready var crosshair = $UI/TextureRect
-@onready var stamina = $"UI/TextureProgressBar"
-@onready var health =$"UI/TextureProgressBar2"
+@onready var gun1 = $"Head/Camera3D/Steampunk Rifle1"  # weapons
+@onready var gun2 = $"Head/Camera3D/Steampunk Rifle2"
+@onready var gun3 = $"Head/Camera3D/Steampunk Rifle3"
+
+@onready var crosshair = $"UI/Crosshair"   # UI components
+@onready var stamina = $"UI/StaminaBar"
+@onready var health =$"UI/HealthBar"
 @onready var EN = $"UI/EN"
 @onready var model = $"UI/Model"
 @onready var mode = $"UI/flightMode"
 
-@onready var gun_anim := $"Head/Camera3D/Steampunk Rifle/AnimationPlayer"
+@onready var gun1_anim := $"Head/Camera3D/Steampunk Rifle1/AnimationPlayer"  # Weapon anim
 @onready var gun2_anim :=$"Head/Camera3D/Steampunk Rifle2/AnimationPlayer"
 @onready var gun3_anim :=$"Head/Camera3D/Steampunk Rifle3/AnimationPlayer"
 
-@onready var gun_muzzle := $"Head/Camera3D/Steampunk Rifle/RayCast3D"
+@onready var gun1_muzzle := $"Head/Camera3D/Steampunk Rifle1/RayCast3D"   # Weapon projectiles
 @onready var gun2_muzzle := $"Head/Camera3D/Steampunk Rifle2/RayCast3D"
 @onready var gun3_muzzle := $"Head/Camera3D/Steampunk Rifle3/RayCast3D"
 
 func _ready():    # gets rid of cursor to allow camera to move via mouse
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
-	crosshair.position.x = get_viewport().size.x / 2 - 32
+	crosshair.position.x = get_viewport().size.x / 2 - 32  # crosshair
 	crosshair.position.y = get_viewport().size.y / 2 - 32
 	
-	stamina.position.x = get_viewport().size.x / 2 - 250
+	stamina.position.x = get_viewport().size.x / 2 - 250  #stamina bar
 	stamina.position.y = 625
 	
-	health.position.x = get_viewport().size.x / 2 - 275
+	health.position.x = get_viewport().size.x / 2 - 275  # health bar
 	health.position.y = 610
 	
-	EN.position.x = get_viewport().size.x / 2 - 86
+	EN.position.x = get_viewport().size.x / 2 - 86 # Energy message
 	EN.position.y = 580
 	
-	stamina.value = stamina.max_value
+	stamina.value = stamina.max_value   
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -71,11 +68,11 @@ func _unhandled_input(event):
 		
 func model_switch():
 	if Input.is_action_pressed("switch1"):
-		num = 1
+		modelNum = 1
 		SPRINT = 10.0
 		BOOST = 20.0
 	if Input.is_action_pressed("switch2"):
-		num = 2
+		modelNum = 2
 		SPRINT = 5.0
 		BOOST = 15.0
 		JUMP_VELOCITY = 4.5
@@ -84,11 +81,11 @@ func model_switch():
 	
 func lightshot():  # right handed gun
 	if Input.is_action_pressed("lightshot"):
-		if !gun_anim.is_playing():
-			gun_anim.play("recoil")
+		if !gun1_anim.is_playing():
+			gun1_anim.play("recoil")
 			inst = bullet.instantiate()
-			inst.position = gun_muzzle.global_position
-			inst.transform.basis = gun_muzzle.global_transform.basis
+			inst.position = gun1_muzzle.global_position
+			inst.transform.basis = gun1_muzzle.global_transform.basis
 			get_parent().add_child(inst)
 		if !gun2_anim.is_playing():
 			gun2_anim.play("recoil")
@@ -128,7 +125,10 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 		
-	if Input.is_action_pressed("sprint") and stamina.value != 0 and b: # pressing shift will make the player sprint
+	# IMPORTANT SECTION; CONTAINS ALL RELEVANT ANIMATIONS/MECHANICS
+	################################################################################################
+	
+	if Input.is_action_pressed("sprint") and stamina.value != 0 and can_boost: # pressing shift will make the player sprint
 		if !player_anim.is_playing():
 			player_anim.play("zoom")
 			
@@ -136,27 +136,26 @@ func _physics_process(delta):
 		stamina.value -= 1		
 		
 	else:
-		if Input.is_action_pressed("q") and mode.visible == true:
-			mode.text = "(Flight Enabled)"
+		if Input.is_action_pressed("q") and mode.visible == true:  # UI changes
+			mode.text = "(ON)"
 		if Input.is_action_pressed("e") and mode.visible == true:
-			mode.text = "(Flight Disabled)"
+			mode.text = "(OFF)"
 			
 		if Input.is_action_pressed("switch1"):
-			mode.text = "(Flight Disabled)"
+			mode.text = "(OFF)"
 			mode.visible = true
 			model.text = "Model 1: Jet Build"
 		if Input.is_action_pressed("switch2"):
 			mode.visible = false
 			model.text = "Model 2: Tank Build"
 
-
-		if stamina.value >= stamina.max_value:
+		if stamina.value >= stamina.max_value:   # Stamina bar calculations
 			EN.visible = false
 			stamina.value = stamina.max_value
-			b = true
+			can_boost = true
 		elif stamina.value == 0:
 			EN.visible = true
-			b = false
+			can_boost = false
 			stamina.value += 1
 		else:
 			stamina.value += 1
@@ -164,16 +163,18 @@ func _physics_process(delta):
 		player_anim.stop()
 		model_switch()
 		
-		if num == 1:
+		if modelNum == 1:               # Model Switch (cannot be achieved when sprinting)
 			gun3.visible = false
 			flight()
-		if num == 2:
+		if modelNum == 2:
 			gun3.visible = true
 			powershot()
 			
 		lightshot()
 		speed = SPRINT
 		
+	################################################################################################
+	
 	if Input.is_action_just_pressed("quit"):  # added a quit button
 		get_tree().quit()
 

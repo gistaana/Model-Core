@@ -20,7 +20,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Head/Camera3D/Steampunk Rifle:position")
+tracks/0/path = NodePath("Head/Camera3D/Steampunk Rifle1:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -32,7 +32,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Head/Camera3D/Steampunk Rifle:rotation")
+tracks/1/path = NodePath("Head/Camera3D/Steampunk Rifle1:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -104,7 +104,7 @@ step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Head/Camera3D/Steampunk Rifle:position")
+tracks/0/path = NodePath("Head/Camera3D/Steampunk Rifle1:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -116,7 +116,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Head/Camera3D/Steampunk Rifle:rotation")
+tracks/1/path = NodePath("Head/Camera3D/Steampunk Rifle1:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -186,7 +186,6 @@ _data = {
 font_size = 12
 
 [sub_resource type="LabelSettings" id="LabelSettings_r1bbv"]
-font_size = 12
 
 [sub_resource type="LabelSettings" id="LabelSettings_njlus"]
 font_size = 12
@@ -194,11 +193,11 @@ font_size = 12
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_lengv")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Body" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00906058, 0.978799, 0)
 mesh = SubResource("CapsuleMesh_p35qq")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="PlayerHitbox" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97951, 0)
 shape = SubResource("ConvexPolygonShape3D_2jybj")
 
@@ -207,7 +206,7 @@ shape = SubResource("ConvexPolygonShape3D_2jybj")
 [node name="Camera3D" type="Camera3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5975, 0)
 
-[node name="Steampunk Rifle" parent="Head/Camera3D" instance=ExtResource("2_3qfs7")]
+[node name="Steampunk Rifle1" parent="Head/Camera3D" instance=ExtResource("2_3qfs7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, -0.267, -0.691)
 
 [node name="Steampunk Rifle2" parent="Head/Camera3D" instance=ExtResource("3_jytqi")]
@@ -221,9 +220,6 @@ libraries = {
 "": SubResource("AnimationLibrary_je2yd")
 }
 
-[node name="BoostDuration" type="Timer" parent="."]
-one_shot = true
-
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -231,14 +227,14 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("5_xh6dm")
 
-[node name="TextureRect" type="TextureRect" parent="UI"]
+[node name="Crosshair" type="TextureRect" parent="UI"]
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
 mouse_filter = 2
 texture = ExtResource("6_y075n")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="UI"]
+[node name="StaminaBar" type="TextureProgressBar" parent="UI"]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 300.0
@@ -261,14 +257,14 @@ label_settings = SubResource("LabelSettings_jsp18")
 
 [node name="Model" type="Label" parent="UI"]
 layout_mode = 0
-offset_left = 66.0
-offset_top = 594.0
-offset_right = 170.0
-offset_bottom = 617.0
+offset_left = 61.0
+offset_top = 598.0
+offset_right = 200.0
+offset_bottom = 624.0
 text = "Model 1: Jet Build "
 label_settings = SubResource("LabelSettings_r1bbv")
 
-[node name="TextureProgressBar2" type="TextureProgressBar" parent="UI"]
+[node name="HealthBar" type="TextureProgressBar" parent="UI"]
 layout_mode = 0
 offset_left = 61.0
 offset_top = 496.0
@@ -282,14 +278,14 @@ texture_progress = ExtResource("8_fhwu3")
 
 [node name="flightMode" type="Label" parent="UI"]
 layout_mode = 0
-offset_left = 71.0
-offset_top = 611.0
-offset_right = 165.0
-offset_bottom = 634.0
-text = "(Flight Disabled)"
+offset_left = 62.0
+offset_top = 617.0
+offset_right = 92.0
+offset_bottom = 637.0
+text = "(OFF)"
 label_settings = SubResource("LabelSettings_njlus")
 
-[node name="TextureRect2" type="TextureRect" parent="UI"]
+[node name="Insignia" type="TextureRect" parent="UI"]
 layout_mode = 0
 offset_left = 11.0
 offset_top = 590.0
@@ -298,6 +294,3 @@ offset_bottom = 654.0
 texture = ExtResource("9_7883w")
 expand_mode = 1
 stretch_mode = 4
-
-[connection signal="timeout" from="BoostDuration" to="." method="_on_boost_cool_down_timeout"]
-[connection signal="timeout" from="BoostDuration" to="." method="_on_boost_duration_timeout"]
