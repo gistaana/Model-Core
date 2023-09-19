@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dj7n4xjfa8f0g" path="res://Textures/Black/crosshair159.png" id="6_y075n"]
 [ext_resource type="Texture2D" uid="uid://bytokre0rr0q7" path="res://Textures/under.png" id="7_erww4"]
 [ext_resource type="Texture2D" uid="uid://cbw7uprktkych" path="res://Textures/progress.png" id="8_fhwu3"]
-[ext_resource type="Texture2D" uid="uid://ue2ltoielyuj" path="res://sharingan_render__naruto_mobile__by_maxiuchiha22_dd34dna-fullview.png" id="9_7883w"]
+[ext_resource type="Texture2D" uid="uid://ue2ltoielyuj" path="res://Textures/sharingan_render__naruto_mobile__by_maxiuchiha22_dd34dna-fullview.png" id="9_c5ngj"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_p35qq"]
 
@@ -291,6 +291,6 @@ offset_left = 9.0
 offset_top = 596.0
 offset_right = 50.0
 offset_bottom = 660.0
-texture = ExtResource("9_7883w")
+texture = ExtResource("9_c5ngj")
 expand_mode = 1
 stretch_mode = 4
