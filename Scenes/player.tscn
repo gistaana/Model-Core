@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://qpx2l1xvo6nd"]
+[gd_scene load_steps=21 format=3 uid="uid://qpx2l1xvo6nd"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_lengv"]
 [ext_resource type="PackedScene" uid="uid://chlqyibj0scav" path="res://Scenes/steampunk_rifle.tscn" id="2_3qfs7"]
 [ext_resource type="PackedScene" uid="uid://dpjke3nwv7vio" path="res://Scenes/steampunk_rifle_2.tscn" id="3_jytqi"]
 [ext_resource type="PackedScene" uid="uid://con8yi1osaamb" path="res://Scenes/steampunk_rifle_3.tscn" id="4_kpmis"]
+[ext_resource type="PackedScene" uid="uid://cpp17gottbbrf" path="res://Scenes/robot_arm.tscn" id="5_0sa4u"]
 [ext_resource type="Script" path="res://Scenes/UI.gd" id="5_xh6dm"]
 [ext_resource type="Texture2D" uid="uid://dj7n4xjfa8f0g" path="res://Textures/Black/crosshair159.png" id="6_y075n"]
 [ext_resource type="Texture2D" uid="uid://bytokre0rr0q7" path="res://Textures/under.png" id="7_erww4"]
@@ -89,10 +90,34 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Head/Camera3D/Robot Arm:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.0785227, -0.285288, -0.337206)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Head/Camera3D/Robot Arm:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.64764, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_06pdy"]
 resource_name = "melee"
-length = 0.3
+length = 0.5
 
 [sub_resource type="Animation" id="Animation_kunko"]
 resource_name = "sumn"
@@ -173,6 +198,30 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Head/Camera3D/Robot Arm:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.03),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.0785227, -0.285288, -0.337206), Vector3(0.0785227, -0.285288, -0.0537457)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Head/Camera3D/Robot Arm:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.03),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.64764, 0), Vector3(0.0553003, 1.62418, -0.802265)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_je2yd"]
 _data = {
@@ -208,12 +257,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5975, 0)
 
 [node name="Steampunk Rifle1" parent="Head/Camera3D" instance=ExtResource("2_3qfs7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, -0.267, -0.691)
+visible = false
 
 [node name="Steampunk Rifle2" parent="Head/Camera3D" instance=ExtResource("3_jytqi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, -0.267, -0.691)
+visible = false
 
 [node name="Steampunk Rifle3" parent="Head/Camera3D" instance=ExtResource("4_kpmis")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.34443, -0.0442152, 0.0507945)
+visible = false
+
+[node name="Robot Arm" parent="Head/Camera3D" instance=ExtResource("5_0sa4u")]
+transform = Transform3D(-0.0767713, 0, 0.997049, 0, 1, 0, -0.997049, 0, -0.0767713, 0.0785227, -0.285288, -0.337206)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

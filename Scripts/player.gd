@@ -38,6 +38,7 @@ var inst
 @onready var gun1_anim := $"Head/Camera3D/Steampunk Rifle1/AnimationPlayer"  # Weapon anim
 @onready var gun2_anim :=$"Head/Camera3D/Steampunk Rifle2/AnimationPlayer"
 @onready var gun3_anim :=$"Head/Camera3D/Steampunk Rifle3/AnimationPlayer"
+@onready var arm_anim = $"Head/Camera3D/Robot Arm/AnimationPlayer"
 
 @onready var gun1_muzzle := $"Head/Camera3D/Steampunk Rifle1/RayCast3D"   # Weapon projectiles
 @onready var gun2_muzzle := $"Head/Camera3D/Steampunk Rifle2/RayCast3D"
@@ -73,8 +74,8 @@ func model_switch():
 		BOOST = 20.0
 	if Input.is_action_pressed("switch2"):
 		modelNum = 2
-		SPRINT = 5.0
-		BOOST = 15.0
+		SPRINT = 9.0
+		BOOST = 17.0
 		JUMP_VELOCITY = 4.5
 	else:
 		pass
@@ -93,6 +94,11 @@ func lightshot():  # right handed gun
 			inst.position = gun2_muzzle.global_position
 			inst.transform.basis = gun2_muzzle.global_transform.basis
 			get_parent().add_child(inst)
+		
+func melee():
+	if Input.is_action_pressed("lightshot"):
+		if !arm_anim.is_playing():
+			arm_anim.play("boom")
 		
 func powershot():
 	if Input.is_action_pressed("powershot"):
@@ -116,7 +122,7 @@ func flight():
 		SPRINT = 10.0
 		
 		
-func _physics_process(delta):
+func _physics_process(delta):	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
@@ -133,7 +139,7 @@ func _physics_process(delta):
 			player_anim.play("zoom")
 			
 		speed = BOOST 
-		stamina.value -= 1		
+		stamina.value -= 1	
 		
 	else:
 		if Input.is_action_pressed("q") and mode.visible == true:  # UI changes
@@ -162,6 +168,7 @@ func _physics_process(delta):
 		
 		player_anim.stop()
 		model_switch()
+		melee()
 		
 		if modelNum == 1:               # Model Switch (cannot be achieved when sprinting)
 			gun3.visible = false
@@ -170,7 +177,6 @@ func _physics_process(delta):
 			gun3.visible = true
 			powershot()
 			
-		lightshot()
 		speed = SPRINT
 		
 	################################################################################################
