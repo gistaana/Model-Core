@@ -168,7 +168,7 @@ func _physics_process(delta):
 		
 		player_anim.stop()
 		model_switch()
-		melee()
+		lightshot()
 		
 		if modelNum == 1:               # Model Switch (cannot be achieved when sprinting)
 			gun3.visible = false
