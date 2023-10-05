@@ -27,6 +27,10 @@ var inst
 @onready var gun1 = $"Head/Camera3D/Steampunk Rifle1"  # weapons
 @onready var gun2 = $"Head/Camera3D/Steampunk Rifle2"
 @onready var gun3 = $"Head/Camera3D/Steampunk Rifle3"
+@onready var gun4 = $"Head/Camera3D/Steampunk Rifle"
+@onready var sb1 = $"Head/Camera3D/standby1"
+@onready var sb2 = $"Head/Camera3D/standby2"
+
 
 @onready var crosshair = $"UI/Crosshair"   # UI components
 @onready var stamina = $"UI/StaminaBar"
@@ -38,11 +42,14 @@ var inst
 @onready var gun1_anim := $"Head/Camera3D/Steampunk Rifle1/AnimationPlayer"  # Weapon anim
 @onready var gun2_anim :=$"Head/Camera3D/Steampunk Rifle2/AnimationPlayer"
 @onready var gun3_anim :=$"Head/Camera3D/Steampunk Rifle3/AnimationPlayer"
+@onready var gun4_anim :=$"Head/Camera3D/Steampunk Rifle/AnimationPlayer"
 @onready var arm_anim = $"Head/Camera3D/Robot Arm/AnimationPlayer"
 
 @onready var gun1_muzzle := $"Head/Camera3D/Steampunk Rifle1/RayCast3D"   # Weapon projectiles
 @onready var gun2_muzzle := $"Head/Camera3D/Steampunk Rifle2/RayCast3D"
 @onready var gun3_muzzle := $"Head/Camera3D/Steampunk Rifle3/RayCast3D"
+@onready var gun4_muzzle := $"Head/Camera3D/Steampunk Rifle/RayCast3D"
+
 
 func _ready():    # gets rid of cursor to allow camera to move via mouse
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -75,7 +82,7 @@ func model_switch():
 	if Input.is_action_pressed("switch2"):
 		modelNum = 2
 		SPRINT = 9.0
-		BOOST = 17.0
+		BOOST = 15.0
 		JUMP_VELOCITY = 4.5
 	else:
 		pass
@@ -90,7 +97,7 @@ func lightshot():  # right handed gun
 			get_parent().add_child(inst)
 		if !gun2_anim.is_playing():
 			gun2_anim.play("recoil")
-			inst = bullet2.instantiate()
+			inst = bullet.instantiate()
 			inst.position = gun2_muzzle.global_position
 			inst.transform.basis = gun2_muzzle.global_transform.basis
 			get_parent().add_child(inst)
@@ -104,15 +111,20 @@ func powershot():
 	if Input.is_action_pressed("powershot"):
 		if !gun3_anim.is_playing():
 			gun3_anim.play("fastrecoil")
-			inst = energyball.instantiate()
+			inst = bullet2.instantiate()
 			inst.position = gun3_muzzle.global_position
 			inst.transform.basis = gun3_muzzle.global_transform.basis
 			get_parent().add_child(inst)
-	
+		if !gun4_anim.is_playing():
+			gun4_anim.play("shoot")
+			inst = bullet2.instantiate()
+			inst.position = gun4_muzzle.global_position
+			inst.transform.basis = gun4_muzzle.global_transform.basis
+			get_parent().add_child(inst)
 		
 func flight():
 	if Input.is_action_pressed("q"):
-		JUMP_VELOCITY = 10.0
+		JUMP_VELOCITY = 12.0
 		BOOST = 30.0
 		SPRINT = 5.0
 			
@@ -134,7 +146,7 @@ func _physics_process(delta):
 	# IMPORTANT SECTION; CONTAINS ALL RELEVANT ANIMATIONS/MECHANICS
 	################################################################################################
 	
-	if Input.is_action_pressed("sprint") and stamina.value != 0 and can_boost: # pressing shift will make the player sprint
+	if Input.is_action_pressed("sprint") and stamina.value != 0 and can_boost: # pressing shift will make the player sprint			
 		if !player_anim.is_playing():
 			player_anim.play("zoom")
 			
@@ -172,11 +184,16 @@ func _physics_process(delta):
 		
 		if modelNum == 1:               # Model Switch (cannot be achieved when sprinting)
 			gun3.visible = false
+			gun4.visible = false
+			sb1.visible = true
+			sb2.visible = true
 			flight()
 		if modelNum == 2:
-			gun3.visible = true
 			powershot()
-			
+			gun3.visible = true
+			gun4.visible = true
+			sb1.visible = false
+			sb2.visible = false
 		speed = SPRINT
 		
 	################################################################################################
