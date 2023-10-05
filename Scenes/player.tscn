@@ -391,6 +391,7 @@ transform = Transform3D(1, 0, 0, 0, 0.802817, -0.596225, 0, 0.596225, 0.802817, 
 transform = Transform3D(1, 0, 0, 0, 0.802963, -0.596029, 0, 0.596029, 0.802963, -0.344, -0.044, 0.051)
 
 [node name="Robot Arm" parent="Head/Camera3D" instance=ExtResource("5_0sa4u")]
+transform = Transform3D(-0.0767183, 0, 0.997053, 0, 1, 0, -0.997053, 0, -0.0767183, 0.079, -0.285, -0.337)
 visible = false
 
 [node name="Steampunk Rifle" parent="Head/Camera3D" instance=ExtResource("7_3avf7")]
