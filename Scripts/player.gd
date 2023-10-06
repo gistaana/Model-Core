@@ -79,11 +79,17 @@ func model_switch():
 		modelNum = 1
 		SPRINT = 10.0
 		BOOST = 20.0
+		JUMP_VELOCITY = 4.5
 	if Input.is_action_pressed("switch2"):
 		modelNum = 2
 		SPRINT = 9.0
 		BOOST = 15.0
 		JUMP_VELOCITY = 4.5
+	if Input.is_action_pressed("switch3"):
+		modelNum = 3
+		SPRINT = 5.0
+		BOOST = 7.0
+		JUMP_VELOCITY = 1.5
 	else:
 		pass
 	
@@ -111,17 +117,26 @@ func powershot():
 	if Input.is_action_pressed("powershot"):
 		if !gun3_anim.is_playing():
 			gun3_anim.play("fastrecoil")
-			inst = bullet2.instantiate()
+			inst = energyball.instantiate()
+			inst.position = gun3_muzzle.global_position
+			inst.transform.basis = gun3_muzzle.global_transform.basis
+			get_parent().add_child(inst)
+			
+func ultshot():
+	if Input.is_action_pressed("powershot"):
+		if !gun3_anim.is_playing():
+			gun3_anim.play("rec")
+			inst = energyball.instantiate()
 			inst.position = gun3_muzzle.global_position
 			inst.transform.basis = gun3_muzzle.global_transform.basis
 			get_parent().add_child(inst)
 		if !gun4_anim.is_playing():
-			gun4_anim.play("shoot")
-			inst = bullet2.instantiate()
+			gun4_anim.play("newrecoil")
+			inst = energyball.instantiate()
 			inst.position = gun4_muzzle.global_position
 			inst.transform.basis = gun4_muzzle.global_transform.basis
 			get_parent().add_child(inst)
-		
+			
 func flight():
 	if Input.is_action_pressed("q"):
 		JUMP_VELOCITY = 12.0
@@ -183,17 +198,24 @@ func _physics_process(delta):
 		lightshot()
 		
 		if modelNum == 1:               # Model Switch (cannot be achieved when sprinting)
+			flight()
 			gun3.visible = false
 			gun4.visible = false
 			sb1.visible = true
 			sb2.visible = true
-			flight()
 		if modelNum == 2:
 			powershot()
+			gun3.visible = true
+			gun4.visible = false
+			sb1.visible = false
+			sb2.visible = true
+		if modelNum == 3:
+			ultshot()
 			gun3.visible = true
 			gun4.visible = true
 			sb1.visible = false
 			sb2.visible = false
+			
 		speed = SPRINT
 		
 	################################################################################################

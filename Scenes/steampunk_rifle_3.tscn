@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://con8yi1osaamb"]
+[gd_scene load_steps=6 format=3 uid="uid://con8yi1osaamb"]
 
 [ext_resource type="PackedScene" uid="uid://d1wjoetj2xl52" path="res://Textures/Steampunk Rifle.glb" id="1_7muw7"]
 
@@ -57,8 +57,9 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0.225078, 0, 0), Vector3(0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_vwi6p"]
-resource_name = "newrecoil"
+[sub_resource type="Animation" id="Animation_hoqyv"]
+resource_name = "rec"
+length = 0.1
 step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -67,64 +68,24 @@ tracks/0/path = NodePath("Node:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.261524), Vector3(0, -0.141657, 0.261524), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Node:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.666454, 0, 0), Vector3(1.31748, 0, 0), Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_51xce"]
-resource_name = "recoil"
-step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Node:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 1),
+"times": PackedFloat32Array(0, 0.04, 0.1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-0.105945, 0, 0.249387), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Node:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.15, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.809833, 0, 0), Vector3(0, 0, 0)]
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.2), Vector3(0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g2bk3"]
 _data = {
 "RESET": SubResource("Animation_wbxac"),
 "fastrecoil": SubResource("Animation_nwu0a"),
-"newrecoil": SubResource("Animation_vwi6p"),
-"recoil": SubResource("Animation_51xce")
+"rec": SubResource("Animation_hoqyv")
 }
 
 [node name="Steampunk Rifle3" instance=ExtResource("1_7muw7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.200419)
 
 [node name="RayCast3D" type="RayCast3D" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.520432)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.513048)
 target_position = Vector3(0, 0, -1)
 collide_with_areas = true
 

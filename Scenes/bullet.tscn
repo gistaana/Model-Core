@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_03m6h"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xlhre"]
-albedo_color = Color(0.0784314, 1, 1, 1)
+albedo_color = Color(0.0901961, 1, 1, 1)
 emission_enabled = true
-emission = Color(0, 0.47451, 0.945098, 1)
+emission = Color(0.0901961, 1, 1, 1)
 emission_energy_multiplier = 5.4
 
 [sub_resource type="BoxMesh" id="BoxMesh_8mao1"]
