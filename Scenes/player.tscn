@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://qpx2l1xvo6nd"]
+[gd_scene load_steps=32 format=3 uid="uid://qpx2l1xvo6nd"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_lengv"]
 [ext_resource type="PackedScene" uid="uid://chlqyibj0scav" path="res://Scenes/steampunk_rifle.tscn" id="2_3qfs7"]
@@ -6,12 +6,17 @@
 [ext_resource type="PackedScene" uid="uid://con8yi1osaamb" path="res://Scenes/steampunk_rifle_3.tscn" id="4_kpmis"]
 [ext_resource type="PackedScene" uid="uid://cpp17gottbbrf" path="res://Scenes/robot_arm.tscn" id="5_0sa4u"]
 [ext_resource type="Script" path="res://Scenes/UI.gd" id="5_xh6dm"]
-[ext_resource type="Texture2D" uid="uid://dj7n4xjfa8f0g" path="res://Textures/Black/crosshair159.png" id="6_y075n"]
 [ext_resource type="PackedScene" uid="uid://cxpwn2v7267ff" path="res://Scenes/rifle.tscn" id="7_3avf7"]
 [ext_resource type="Texture2D" uid="uid://bytokre0rr0q7" path="res://Textures/under.png" id="7_erww4"]
 [ext_resource type="PackedScene" uid="uid://d1wjoetj2xl52" path="res://Textures/Steampunk Rifle.glb" id="7_t50de"]
 [ext_resource type="Texture2D" uid="uid://cbw7uprktkych" path="res://Textures/progress.png" id="8_fhwu3"]
-[ext_resource type="Texture2D" uid="uid://ue2ltoielyuj" path="res://Textures/sharingan_render__naruto_mobile__by_maxiuchiha22_dd34dna-fullview.png" id="9_c5ngj"]
+[ext_resource type="Texture2D" uid="uid://njx4gpra2cjl" path="res://Textures/hiclipart.com (11).png" id="13_k1wr3"]
+[ext_resource type="Texture2D" uid="uid://barwhlbkro7df" path="res://Textures/hiclipart.com (9).png" id="13_u8ax5"]
+[ext_resource type="Texture2D" uid="uid://cnchsgmse1i0j" path="res://Textures/hiclipart.com (6).png" id="14_b0oed"]
+[ext_resource type="Texture2D" uid="uid://8kwy7phh4kcb" path="res://Textures/pngfind.com-png-hud-3275305.png" id="14_qlcem"]
+[ext_resource type="Texture2D" uid="uid://dj7n4xjfa8f0g" path="res://Textures/Black/crosshair159.png" id="15_lgjab"]
+[ext_resource type="Texture2D" uid="uid://bl0li0xo2wepe" path="res://Textures/hiclipart.com (1).png" id="16_a8bwm"]
+[ext_resource type="Texture2D" uid="uid://cqiwryxtuel31" path="res://Textures/—Pngtree—futuristic hud gaming panel_8796197.png" id="17_5vxkc"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_p35qq"]
 
@@ -355,8 +360,15 @@ _data = {
 font_size = 12
 
 [sub_resource type="LabelSettings" id="LabelSettings_r1bbv"]
+font_size = 12
 
 [sub_resource type="LabelSettings" id="LabelSettings_njlus"]
+font_size = 12
+
+[sub_resource type="FontVariation" id="FontVariation_6wlxx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_m83lb"]
+font = SubResource("FontVariation_6wlxx")
 font_size = 12
 
 [node name="Player" type="CharacterBody3D"]
@@ -391,6 +403,7 @@ transform = Transform3D(1, 0, 0, 0, 0.802817, -0.596225, 0, 0.596225, 0.802817, 
 transform = Transform3D(1, 0, 0, 0, 0.802963, -0.596029, 0, 0.596029, 0.802963, -0.344, -0.044, 0.051)
 
 [node name="Robot Arm" parent="Head/Camera3D" instance=ExtResource("5_0sa4u")]
+transform = Transform3D(-0.0767183, 0, 0.997053, 0, 1, 0, -0.997053, 0, -0.0767183, 0.079, -0.285, -0.337)
 visible = false
 
 [node name="Steampunk Rifle" parent="Head/Camera3D" instance=ExtResource("7_3avf7")]
@@ -410,11 +423,14 @@ offset_bottom = 40.0
 script = ExtResource("5_xh6dm")
 
 [node name="Crosshair" type="TextureRect" parent="UI"]
+visible = false
 layout_mode = 0
-offset_right = 64.0
-offset_bottom = 64.0
+offset_left = 176.0
+offset_top = -55.0
+offset_right = 776.0
+offset_bottom = 395.0
 mouse_filter = 2
-texture = ExtResource("6_y075n")
+texture = ExtResource("14_b0oed")
 
 [node name="StaminaBar" type="TextureProgressBar" parent="UI"]
 layout_mode = 0
@@ -430,28 +446,29 @@ texture_progress = ExtResource("8_fhwu3")
 
 [node name="EN" type="Label" parent="UI"]
 layout_mode = 0
-offset_left = 70.0
-offset_top = 455.0
-offset_right = 242.0
-offset_bottom = 475.0
+offset_left = 725.0
+offset_top = 309.0
+offset_right = 897.0
+offset_bottom = 329.0
 text = "EN DEPLETED! RECHARGING..."
 label_settings = SubResource("LabelSettings_jsp18")
 
 [node name="Model" type="Label" parent="UI"]
 layout_mode = 0
-offset_left = 61.0
-offset_top = 598.0
-offset_right = 200.0
-offset_bottom = 624.0
+offset_left = 33.0
+offset_top = 531.0
+offset_right = 137.0
+offset_bottom = 551.0
 text = "Model 1: Jet Build "
 label_settings = SubResource("LabelSettings_r1bbv")
 
 [node name="HealthBar" type="TextureProgressBar" parent="UI"]
+visible = false
 layout_mode = 0
-offset_left = 61.0
-offset_top = 496.0
-offset_right = 611.0
-offset_bottom = 499.0
+offset_left = 27.0
+offset_top = 384.0
+offset_right = 238.0
+offset_bottom = 395.0
 step = 0.0
 value = 100.0
 nine_patch_stretch = true
@@ -459,20 +476,57 @@ texture_under = ExtResource("7_erww4")
 texture_progress = ExtResource("8_fhwu3")
 
 [node name="flightMode" type="Label" parent="UI"]
+visible = false
 layout_mode = 0
-offset_left = 62.0
-offset_top = 617.0
-offset_right = 92.0
-offset_bottom = 637.0
-text = "(OFF)"
+offset_left = 59.0
+offset_top = 541.0
+offset_right = 173.0
+offset_bottom = 561.0
+text = "Flight Mode (Ofline)"
 label_settings = SubResource("LabelSettings_njlus")
 
-[node name="Insignia" type="TextureRect" parent="UI"]
+[node name="Label" type="Label" parent="UI"]
+visible = false
 layout_mode = 0
-offset_left = 9.0
-offset_top = 596.0
-offset_right = 50.0
-offset_bottom = 660.0
-texture = ExtResource("9_c5ngj")
-expand_mode = 1
-stretch_mode = 4
+offset_left = 54.0
+offset_top = 519.0
+offset_right = 174.0
+offset_bottom = 562.0
+text = "System: Online
+Designated: AC0127
+"
+label_settings = SubResource("LabelSettings_m83lb")
+
+[node name="Pngfind_com-png-hud-3275305" type="Sprite2D" parent="UI"]
+show_behind_parent = true
+visibility_layer = 512
+position = Vector2(576, 324)
+scale = Vector2(1.125, 1.11724)
+texture = ExtResource("14_qlcem")
+flip_h = true
+
+[node name="Hiclipart_com(9)" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(147, 562)
+texture = ExtResource("13_u8ax5")
+flip_h = true
+
+[node name="Hiclipart_com(11)" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1030, 550)
+texture = ExtResource("13_k1wr3")
+
+[node name="Crosshair159" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(498, 230)
+texture = ExtResource("15_lgjab")
+
+[node name="Hiclipart_com(1)" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(498, 230)
+texture = ExtResource("16_a8bwm")
+
+[node name="—pngtree—futuristicHudGamingPanel8796197" type="Sprite2D" parent="."]
+position = Vector2(141, 427)
+scale = Vector2(0.261458, 0.213958)
+texture = ExtResource("17_5vxkc")

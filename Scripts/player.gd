@@ -1,12 +1,12 @@
 extends CharacterBody3D
 
 var speed = 0
-const WALK = 5.0
-var SPRINT = 9.0
+var SPRINT = 6.0
 var BOOST = 20.0
 var JUMP_VELOCITY = 4.5
 const MOUSESPEED = 0.004
 var modelNum = 1
+var flightNum = 1
 var can_boost = true
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -54,17 +54,17 @@ var inst
 func _ready():    # gets rid of cursor to allow camera to move via mouse
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
-	crosshair.position.x = get_viewport().size.x / 2 - 32  # crosshair
-	crosshair.position.y = get_viewport().size.y / 2 - 32
+	crosshair.position.x = get_viewport().size.x / 2 - 300  # crosshair
+	crosshair.position.y = get_viewport().size.y / 2 - 225
 	
 	stamina.position.x = get_viewport().size.x / 2 - 250  #stamina bar
-	stamina.position.y = 625
+	stamina.position.y = 68
 	
-	health.position.x = get_viewport().size.x / 2 - 275  # health bar
-	health.position.y = 610
+	##health.position.x = get_viewport().size.x / 2 - 275  # health bar
+	##health.position.y = 58
 	
 	EN.position.x = get_viewport().size.x / 2 - 86 # Energy message
-	EN.position.y = 580
+	EN.position.y = 250
 	
 	stamina.value = stamina.max_value   
 
@@ -77,24 +77,24 @@ func _unhandled_input(event):
 func model_switch():
 	if Input.is_action_pressed("switch1"):
 		modelNum = 1
-		SPRINT = 10.0
+		#SPRINT = 10.0
 		BOOST = 20.0
 		JUMP_VELOCITY = 4.5
 	if Input.is_action_pressed("switch2"):
 		modelNum = 2
-		SPRINT = 9.0
+		#SPRINT = 9.0
 		BOOST = 15.0
 		JUMP_VELOCITY = 4.5
 	if Input.is_action_pressed("switch3"):
 		modelNum = 3
-		SPRINT = 5.0
+		#SPRINT = 5.0
 		BOOST = 7.0
 		JUMP_VELOCITY = 1.5
 	else:
 		pass
 	
 func lightshot():  # right handed gun
-	if Input.is_action_pressed("lightshot"):
+	if Input.is_action_pressed("lightshot") and can_boost:
 		if !gun1_anim.is_playing():
 			gun1_anim.play("recoil")
 			inst = bullet.instantiate()
@@ -114,16 +114,18 @@ func melee():
 			arm_anim.play("boom")
 		
 func powershot():
-	if Input.is_action_pressed("powershot"):
+	if Input.is_action_pressed("powershot") and can_boost:
+		stamina.value -= 1.2
 		if !gun3_anim.is_playing():
-			gun3_anim.play("fastrecoil")
+			gun3_anim.play("rec")
 			inst = energyball.instantiate()
 			inst.position = gun3_muzzle.global_position
 			inst.transform.basis = gun3_muzzle.global_transform.basis
 			get_parent().add_child(inst)
 			
 func ultshot():
-	if Input.is_action_pressed("powershot"):
+	if Input.is_action_pressed("powershot") and can_boost:
+		stamina.value -= 1.5
 		if !gun3_anim.is_playing():
 			gun3_anim.play("rec")
 			inst = energyball.instantiate()
@@ -139,14 +141,15 @@ func ultshot():
 			
 func flight():
 	if Input.is_action_pressed("q"):
-		JUMP_VELOCITY = 12.0
-		BOOST = 30.0
-		SPRINT = 5.0
+		flightNum = 2
+		SPRINT = 10.0
+		BOOST = 25.0
+		#SPRINT = 5.0
 			
 	if Input.is_action_pressed("e"):
-		JUMP_VELOCITY = 4.5
+		flightNum = 1
 		BOOST = 20.0
-		SPRINT = 10.0
+		#SPRINT = 10.0
 		
 		
 func _physics_process(delta):	
@@ -161,10 +164,13 @@ func _physics_process(delta):
 	# IMPORTANT SECTION; CONTAINS ALL RELEVANT ANIMATIONS/MECHANICS
 	################################################################################################
 	
-	if Input.is_action_pressed("sprint") and stamina.value != 0 and can_boost: # pressing shift will make the player sprint			
-		if !player_anim.is_playing():
-			player_anim.play("zoom")
-			
+	if Input.is_action_pressed("sprint") and stamina.value != 0 and can_boost: # pressing shift will make the player sprint					
+		if modelNum == 1 and flightNum == 2:
+			lightshot()
+		else:
+			if !player_anim.is_playing():
+				player_anim.play("zoom")	
+				
 		speed = BOOST 
 		stamina.value -= 1	
 		
@@ -181,14 +187,23 @@ func _physics_process(delta):
 		if Input.is_action_pressed("switch2"):
 			mode.visible = false
 			model.text = "Model 2: Tank Build"
+			flightNum = 1
+		if Input.is_action_pressed("switch3"):
+			mode.visible = false
+			model.text = "Model 3: Destroyer Build"
+			flightNum = 1
 
 		if stamina.value >= stamina.max_value:   # Stamina bar calculations
 			EN.visible = false
 			stamina.value = stamina.max_value
 			can_boost = true
+			gun1.visible = true
+			gun2.visible = true
 		elif stamina.value == 0:
 			EN.visible = true
 			can_boost = false
+			gun1.visible = false
+			gun2.visible = false
 			stamina.value += 1
 		else:
 			stamina.value += 1
